@@ -1,3 +1,5 @@
+//Set USB type to 'MIDI' before compile
+
 const int led = 13;
 const bool debug = true;
 
@@ -5,18 +7,16 @@ String inputString = "";         // a string to hold incoming data
 boolean stringComplete = false;  // whether the string is complete
 
 void setup() {
+  pinMode(led, OUTPUT);
+  digitalWriteFast(led, LOW);
+  
   usbMIDI.setHandleNoteOff(OnNoteOff);
   usbMIDI.setHandleNoteOn(OnNoteOn);
-  usbMIDI.setHandleVelocityChange(OnVelocityChange);
   usbMIDI.setHandleControlChange(OnControlChange);
   usbMIDI.setHandleProgramChange(OnProgramChange);
-  usbMIDI.setHandleAfterTouch(OnAfterTouch);
-  usbMIDI.setHandlePitchChange(OnPitchChange);
 
   Serial1.begin(19200);
   inputString.reserve(200);
-  pinMode(led, OUTPUT);
-  digitalWriteFast(led, LOW);
 }
 
 void loop() {
@@ -86,18 +86,6 @@ void OnNoteOff(byte channel, byte note, byte velocity) {
   }
 }
 
-void OnVelocityChange(byte channel, byte note, byte velocity) {
-  if(debug){
-    Serial.print("Velocity Change, ch=");
-    Serial.print(channel, DEC);
-    Serial.print(", note=");
-    Serial.print(note, DEC);
-    Serial.print(", velocity=");
-    Serial.print(velocity, DEC);
-    Serial.println();
-  }
-}
-
 void OnControlChange(byte channel, byte control, byte value) {
   if(debug){
     Serial.print("Control Change, ch=");
@@ -116,26 +104,6 @@ void OnProgramChange(byte channel, byte program) {
     Serial.print(channel, DEC);
     Serial.print(", program=");
     Serial.print(program, DEC);
-    Serial.println();
-  }
-}
-
-void OnAfterTouch(byte channel, byte pressure) {
-  if(debug){
-    Serial.print("After Touch, ch=");
-    Serial.print(channel, DEC);
-    Serial.print(", pressure=");
-    Serial.print(pressure, DEC);
-    Serial.println();
-  }
-}
-
-void OnPitchChange(byte channel, int pitch) {
-  if(debug){
-    Serial.print("Pitch Change, ch=");
-    Serial.print(channel, DEC);
-    Serial.print(", pitch=");
-    Serial.print(pitch, DEC);
     Serial.println();
   }
 }
