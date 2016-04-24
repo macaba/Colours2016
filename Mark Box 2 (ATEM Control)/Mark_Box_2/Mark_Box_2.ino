@@ -56,6 +56,23 @@ void OnControlChange(byte channel, byte control, byte value) {
     Serial.print(value, DEC);
     Serial.println();
   }
+  if(channel == 1){     //V-800HD
+    switch(control){
+      case 12:    //PGM select
+        break;
+      case 13:    //PST/EFFECT select
+        break;
+      case 66:    //AUTO button
+        break;
+      case 67:    //DSK button
+        Keyboard.print(' ');
+        break;
+      case 68:    //CUT button
+        break;
+      case 98:    //Bar (16 bit)
+        break;
+    }
+  }
 }
 
 void OnProgramChange(byte channel, byte program) {
@@ -67,7 +84,7 @@ void OnProgramChange(byte channel, byte program) {
     Serial.println();
   }
   if(channel == 1){
-    Keyboard.print(program + 1);
-    Keyboard.print(' ');
+    if(program < 8)
+      Keyboard.print(program + 1);
   }
 }
