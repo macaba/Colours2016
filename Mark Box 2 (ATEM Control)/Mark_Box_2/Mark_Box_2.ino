@@ -62,6 +62,10 @@ void OnControlChange(byte channel, byte control, byte value) {
         break;
       case 13:    //PST/EFFECT select
         break;
+      case 18:
+        if(value < 7)
+          Keyboard.print(value + 1);
+        break;
       case 66:    //AUTO button
         break;
       case 67:    //DSK button
@@ -83,8 +87,8 @@ void OnProgramChange(byte channel, byte program) {
     Serial.print(program, DEC);
     Serial.println();
   }
-  if(channel == 1){
-    if(program < 8)
-      Keyboard.print(program + 1);
-  }
+  //if(channel == 1){
+    //if(program < 8)
+      //Keyboard.print(program + 1);
+  //}
 }
