@@ -69,7 +69,8 @@ void OnControlChange(byte channel, byte control, byte value) {
       case 66:    //AUTO button
         break;
       case 67:    //DSK button
-        Keyboard.print(' ');
+        //Keyboard.print(' ');
+        Keyboard.println();
         break;
       case 68:    //CUT button
         break;
