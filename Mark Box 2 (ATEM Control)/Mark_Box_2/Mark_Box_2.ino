@@ -5,7 +5,7 @@
 #include <MIDI.h>
 
 const int led = 13;
-const bool debug = true;
+const bool debug = false;
 
 void setup() {
   pinMode(led, OUTPUT);
